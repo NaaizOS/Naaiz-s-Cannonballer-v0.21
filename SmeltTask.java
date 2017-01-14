@@ -16,9 +16,7 @@ public class SmeltTask extends Task {
 	@Override
 	public void process() {
 		api.inventory.getItem("Steel bar").interact("Use");
-		if(api.inventory.isItemSelected()) {
-			api.getObjects().closest("Furnace").interact("Use");
-		}
+		api.getObjects().closest("Furnace").interact("Use");
 		api.mouse.moveRandomly();
 		new ConditionalSleep(3000) {
 			@Override
