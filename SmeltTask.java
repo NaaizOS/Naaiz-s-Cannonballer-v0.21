@@ -16,21 +16,16 @@ public class SmeltTask extends Task {
 	@Override
 	public void process() {
 		api.inventory.getItem("Steel bar").interact("Use");
-		if(api.inventory.isItemSelected())
+		if(api.inventory.isItemSelected()) {
 			api.getObjects().closest("Furnace").interact("Use");
+		}
 		api.mouse.moveRandomly();
-		new ConditionalSleep(400, 200) {
+		new ConditionalSleep(3000) {
 			@Override
             public boolean condition() throws InterruptedException {
-                return api.getObjects().closest("Furnace").interact("Use");
+				return api.widgets.getWidgetContainingText("Steel bar") != null && api.widgets.getWidgetContainingText("Steel bar").isVisible();
             }
 		}.sleep();
-		new ConditionalSleep(6000, 2000) {
-            @Override
-            public boolean condition() throws InterruptedException {
-            	return api.widgets.getWidgetContainingText("Steel bar") != null;
-            }
-        }.sleep();
         if(api.myPlayer().getPosition().getX() == 3109 && api.myPlayer().getPosition().getY() == 3499) {
 	        api.widgets.interact(309, 6, "Make All");
 	        api.mouse.moveOutsideScreen();
